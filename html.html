@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta Romântica</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Federant&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Share+Tech&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Noto Serif", serif;
+            font-optical-sizing: auto;
+            font-weight: weight;
+             font-style: normal;
+            font-variation-settings:
+            "wdth" 100;
+            line-height: 1.6;
+            background-image: url('./foto/gif.gif');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden; /* Evita scroll desnecessário */
+        }
+
+        .envelope {
+            position: relative;
+            width: 700px;
+            height: 550px;
+            max-width: 90vw; /* Responsivo para telas menores */
+            cursor: pointer;
+            perspective: 1000px; /* Para efeito 3D */
+        }
+
+        .carta-fechada {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #f8f8f8;
+            border: 2px solid #d2691e;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #8b4513;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transition: transform 1s ease-in-out;
+            z-index: 2;
+        }
+
+        .carta-fechada.aberta {
+            transform: rotateY(180deg) translateZ(10px); /* Simula abertura */
+            opacity: 0; /* Esconde ao abrir */
+        }
+
+        .carta-aberta {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            max-height: 80vh; /* Limita altura em telas pequenas para scroll */
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px solid #000;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            text-align: center;
+            transform: rotateY(180deg);
+            backface-visibility: hidden;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+            z-index: 1;
+            overflow-y: auto; /* Adiciona scroll vertical quando necessário */
+        }
+
+        .carta-aberta.aberta {
+            opacity: 1;
+            transform: rotateY(0deg);
+        }
+
+        .foto-central {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 20px auto;
+            display: block;
+            border: 3px solid #ffb6c1;
+        }
+
+        .texto-carta {
+            font-size: 20px;
+            color: #333;
+            opacity: 0; /* Começa invisível */
+            animation: fadeIn 3s ease-in-out 1s forwards; /* Fade-in gradual após abertura */
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .fechar {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #d2691e;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none; /* Escondido inicialmente */
+        }
+
+        .fechar.mostrar {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="envelope" id="envelope">
+        <div class="carta-fechada" id="cartaFechada">
+            Clique para abrir a carta 💌
+        </div>
+        <div class="carta-aberta" id="cartaAberta">
+            <button class="fechar" id="fechar">Fechar</button>
+            <h1>Carta</h1>
+            <img src="./foto/ChatGPT Image 1 de nov. de 2025, 20_35_03.png" alt="Foto Central" class="foto-central">
+            <p class="texto-carta">
+                Alerta de MUITO TEXTO,<br>
+                Sabe, eu nunca imaginei que estaria aqui escrevendo uma carta para uma garota que conheci na faculdade. Mas quando te conheci, as coisas fizeram sentido em um nível que nunca esperei. É louco pensar que nos conhecemos de uma forma tão rápida e inesperada que se tornou o que vivemos hoje.<br>
+                Para ser sincero, desde o nosso primeiro diálogo, achei que conversaríamos só naquele dia. No entanto, disse para mim mesmo: 'Cara, essa garota foi muito legal comigo e olha só ela é mó gata. Seria bom continuar a conversar com ela. Mas, sei lá, eu tinha o receio de estar 'emocionado' demais, sabe? Eu não costumo fazer essas coisas.<br>
+                Ainda assim, eu continuei a conversar, e a cada dia você se mostrava ser a garota que valeria a pena continuar conhecendo, até que chegamos a um ponto que eu nunca imaginei: assistir a uma série indicada por você. Tenho certeza de que isso nos uniu ainda mais.<br>
+                E vou ser bem claro: obrigado por me fazer assistir Stranger Things! E preciso agradecer ao Stranger Things por ter me dado um motivo para continuar assistindo e ter assunto contigo! (KFSKKGSKSKGKS).<br>
+                Aos poucos, a garota com quem achei que teríamos apenas uma conversa está se tornando uma pessoa muito importante na minha vida. E agora estou aqui digitando um textão falando sobre essa tal garota que ando sentindo saudade, sinto que estou gostando dessa garota.
+                <br><a href="https://youtu.be/wZvpv89_zFU?si=fzwWL8DKAz8sAMHl">Te dedico essa minha raquelzinha linda</a><br>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const envelope = document.getElementById('envelope');
+        const cartaFechada = document.getElementById('cartaFechada');
+        const cartaAberta = document.getElementById('cartaAberta');
+        const fechar = document.getElementById('fechar');
+
+        envelope.addEventListener('click', () => {
+            cartaFechada.classList.add('aberta');
+            cartaAberta.classList.add('aberta');
+            fechar.classList.add('mostrar');
+        });
+
+        fechar.addEventListener('click', (e) => {
+            e.stopPropagation(); // Evita reabrir ao clicar no botão
+            cartaFechada.classList.remove('aberta');
+            cartaAberta.classList.remove('aberta');
+            fechar.classList.remove('mostrar');
+        });
+    </script>
+</body>
+</html>
